@@ -24,7 +24,29 @@ library(palmerpenguins)
 
 You can and should cross-reference sections and sub-sections. For instance, Section \@ref(data). R Markdown automatically makes the sections lower case and adds a dash to spaces to generate labels, for instance, Section \@ref(first-discussion-point). 
 
+\newpage
+# Replications
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+# Replicate Figure 1
+fig_1_data <- read_csv("~/US_birth_rates_folder/inputs/data/fig_1_data.csv")
+```
 
+```{r Figure1, fig.cap="*Source:* Birth Rates collected from CDC Vital Statistics Births Reports for 2015, 2019 and 2020. See Data Appendix for additional details.", echo=FALSE, warning=FALSE, message=FALSE}
+fig_1_data %>%
+  ggplot(aes(x = year, y = brate_all)) +
+  geom_line(color = "dark blue") +
+  geom_vline(xintercept = 2007, linetype="dashed") +
+  geom_text(aes(x = 2007, label="2007", y = 70), nudge_x = 2.3, nudge_y = 1.5)+
+  labs(title = "Trend in US Birth Rates") +
+  scale_x_continuous(name = NULL, breaks = c(1980, 1985, 1990, 1995, 2000, 2005, 2010, 2015, 2020)) +
+  scale_y_continuous(name = "Births per 1,000 women age 15–44", breaks = c(50, 55, 60, 65, 70, 75, 80), limits = c(50, 80)) +
+  theme_minimal() +
+  theme(panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.minor.y = element_blank())
+```
+
+\newpage
 
 # Data
 
