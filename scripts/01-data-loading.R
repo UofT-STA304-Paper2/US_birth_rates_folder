@@ -21,5 +21,3 @@ fig_2e_data <- read_csv("inputs/data/fig_2e.csv")
 write_csv(fig_2e_data, "inputs/data/fig_2e_data.csv")
 
 read_csv("inputs/data/fig_2e_data.csv")
-
-
