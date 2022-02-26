@@ -100,25 +100,18 @@ df_2b %>%
 
 ```{r, echo=FALSE, warning=FALSE, message=FALSE}
 # Replicate Figure 2e
-fig_2e_data <- read_csv("~/US_birth_rates_folder/inputs/data/fig_2e_data.csv")
+fig_2c_data <- read_csv("~/US_birth_rates_folder/inputs/data/fig_2e_data.csv")
 ```
 
-
 ```{r, echo=FALSE, warning=FALSE, message=FALSE}
-df_2e <- fig_2e_data %>%
+df_2c <- fig_2c_data %>%
   gather(key = "variable", value = "value", -year) %>%
   drop_na()
 ```
 
-```{r, echo=FALSE, warning=FALSE, message=FALSE}
-df_2b <- fig_2ab_data %>%
-  select(year, brate_whitenh, brate_blacknh, brate_hisp) %>%
-  gather(key = "variable", value = "value", -year) %>%
-  drop_na()
-```
 
 ```{r Figure2e, fig.cap="*Note*: Birth rates by marital status are gathered from CDC Vital Statistics Births Reports. The Data Appendix provides detailed information on the specific data source.", echo=FALSE, warning=FALSE, message=FALSE}
-df_2e %>%
+df_2c %>%
   ggplot(aes(x = year, y = value)) + 
   geom_line(aes(color = variable)) +
   geom_vline(xintercept = 2007, linetype="dashed") +
@@ -137,38 +130,59 @@ df_2e %>%
 \newpage
 
 # Data
+We created a table using the `kable` function from the `knitr` package [@citeknitr] to show the first 10 observations of one of the datasets we used (Table 1). This table contains columns recording years and birth rates of different age groups of females.
 
-Our data is of penguins (Figure \@ref(fig:bills)).
+```{r Table1, echo = FALSE, warning=FALSE}
+# Create a table to take a glimpse of some of our data
+library(knitr)
 
-```{r bills, fig.cap="Bills of penguins", echo = FALSE}
-ggplot(penguins, aes(x = island, fill = species)) +
-  geom_bar(alpha = 0.8) +
-  scale_fill_manual(values = c("darkorange","purple","cyan4"),
-                    guide = FALSE) +
+fig_2ab_data %>%
+  select(year, brate_1519, brate_2024, brate_2529, brate_3034, brate_3539, brate_4044) %>%
+  slice(1:10) %>%
+  kable(caption = "First 10 rows of our dataset showing birth rate per year per age group of females")
+```
+From Table \@ref(tab:Table1), we observed birth rates of different age groups of females from 1980 to 1989. We then created a line graph using `ggplot2` package [@citeggplot2] to get an insight on how birth rates changed for females from different races specifically after 2007. 
+
+```{r Figure3, fig.cap="Birth rates by race and ethnicity since the year 2007", echo = FALSE, message=FALSE}
+df_2b %>%
+  filter(year >= 2007) %>%
+  ggplot(aes(x = year, y = value)) + 
+  geom_line(aes(color = variable)) + 
+  labs(title = "b: Race and ethnicity (ages 15 - 44)") +
+  scale_color_discrete(name = "Race and Ethnicity Groups",
+                       limits = c("brate_whitenh", "brate_blacknh", "brate_hisp"),
+                       labels = c("White, non-Hispanic", "Black, non-Hispanic", "Hispanic")) +
+  scale_x_continuous(name = NULL, breaks = c(2007, 2010, 2013, 2016, 2019)) +
+  scale_y_continuous(name = "Births per 1,000 women in different race groups", breaks = c(0, 20, 40, 60, 80, 100, 120, 140), limits = c(0, 140)) +
   theme_minimal() +
-  facet_wrap(~species, ncol = 1) +
-  coord_flip()
+  theme(panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.minor.y = element_blank())
+
 ```
 
-Talk more about it.
+From Figure \@ref(fig:Figure3), we observed a steady decrease in birth rates for Hispanic females since the year 2007, while the birth rates for white females and black females are relatively steady. Figure 3 indicates that the major contribution to declining US birth rates after 2007 comes from the Hispanic populations, in contrary to Figure 2b which shows that before 2007 the black population also contributed greatly to the declining birth rates in the US. 
 
-Also bills and their average (Figure \@ref(fig:billssssss)). (Notice how you can change the height and width so they don't take the whole page?)
+Next, we will look at how birth rates changed for females from ages 15 to 29 specifically after 2007.
 
-```{r billssssss, fig.cap="More bills of penguins", echo = FALSE, fig.width=8, fig.height=4}
-
-# This needs to be about the random data tha tI sasmpled?
-ggplot(penguins, aes(x = island, fill = species)) +
-  geom_bar(alpha = 0.8) +
-  scale_fill_manual(values = c("darkorange","purple","cyan4"),
-                    guide = FALSE) +
+```{r Figure4, fig.cap="Birth rates for females aged 15 to 29 by age groups since the year 2007", echo=FALSE, warning=FALSE, message=FALSE}
+df_2a %>%
+  filter(year >= 2007, variable == "brate_1519" | variable == "brate_2024" | variable == "brate_2529") %>%
+  ggplot(aes(x = year, y = value)) + 
+  geom_line(aes(color = variable)) + 
+  labs(title = "a: Five-year age group") +
+  scale_color_discrete(name = "Age Group",
+                       limits = c("brate_1519", "brate_2024", "brate_2529"),
+                       labels = c("Age 15 - 19", "Age 20 - 24", "Age 25 - 29")) +
+  scale_x_continuous(name = NULL, breaks = c(2007, 2010, 2013, 2016, 2019)) +
+  scale_y_continuous(name = "Births per 1,000 women in different age groups", breaks = c(0, 20, 40, 60, 80, 100, 120, 140), limits = c(0, 140)) +
   theme_minimal() +
-  facet_wrap(~species, ncol = 1) +
-  coord_flip()
+  theme(panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.minor.y = element_blank())
 ```
 
-Talk way more about it. 
-
-
+From Figure \@ref(fig:Figure4), we observed that females in the US aged 15-19, 20-24, and 25-29 all experienced a steady decline in birth rates since the year 2007. This is different from before 2007 where these 3 groups of females had relatively high, steady birth rates. 
 
 # Model
 
