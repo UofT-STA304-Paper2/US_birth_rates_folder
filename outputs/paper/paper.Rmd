@@ -27,7 +27,7 @@ You can and should cross-reference sections and sub-sections. For instance, Sect
 \newpage
 # Replications
 ```{r, echo=FALSE, warning=FALSE, message=FALSE}
-# Replicate Figure 1
+# Replicate Figure 1 from original paper
 fig_1_data <- read_csv("~/US_birth_rates_folder/inputs/data/fig_1_data.csv")
 ```
 
@@ -47,7 +47,7 @@ fig_1_data %>%
 ```
 
 ```{r, echo=FALSE, warning=FALSE, message=FALSE}
-# Replicate Figure 2
+# Replicate Figure 2 from original paper
 fig_2ab_data <- read_csv("~/US_birth_rates_folder/inputs/data/fig_2ab_data.csv")
 ```
 ```{r, echo=FALSE, warning=FALSE, message=FALSE}
@@ -57,12 +57,12 @@ df_2a <- fig_2ab_data %>%
 ```
 
 
-```{r Figure2a, fig.cap="*Note*: Birth rates by age group are gathered from CDC Vital Statistics Births Reports. The Data Appendix provides detailed information on the specific data source.", echo=FALSE, warning=FALSE, message=FALSE}
+```{r Figure2, fig.cap="*Note*: Birth rates by age group are gathered from CDC Vital Statistics Births Reports. The Data Appendix provides detailed information on the specific data source.", echo=FALSE, warning=FALSE, message=FALSE}
 df_2a %>%
   ggplot(aes(x = year, y = value)) + 
   geom_line(aes(color = variable)) +
   geom_vline(xintercept = 2007, linetype="dashed") +
-  geom_text(aes(x = 2007, label="2007", y = 120), nudge_x = 2.3, nudge_y = 1.5) + labs(title = "a: Five-year age group") +
+  geom_text(aes(x = 2007, label="2007", y = 120), nudge_x = 2.3, nudge_y = 1.5) + labs(title = "Five-year age group") +
   scale_color_discrete(name = "Age Group",
                        limits = c("brate_1519", "brate_2024", "brate_2529", "brate_3034", "brate_3539", "brate_4044"),
                        labels = c("Age 15 - 19", "Age 20 - 24", "Age 25 - 29", "Age 30 - 34", "Age 35 - 39", "Age 40 - 44")) +
@@ -81,12 +81,12 @@ df_2b <- fig_2ab_data %>%
   drop_na()
 ```
 
-```{r Figure2b, fig.cap="*Note*: Birth rates by race and ethnicity are gathered from CDC Vital Statistics Births Reports. The Data Appendix provides detailed information on the specific data source.", echo=FALSE, warning=FALSE, message=FALSE}
+```{r Figure3, fig.cap="*Note*: Birth rates by race and ethnicity are gathered from CDC Vital Statistics Births Reports. The Data Appendix provides detailed information on the specific data source.", echo=FALSE, warning=FALSE, message=FALSE}
 df_2b %>%
   ggplot(aes(x = year, y = value)) + 
   geom_line(aes(color = variable)) +
   geom_vline(xintercept = 2007, linetype="dashed") +
-  geom_text(aes(x = 2007, label="2007", y = 130), nudge_x = 2.3, nudge_y = 1.5) + labs(title = "b: Race and ethnicity (ages 15 - 44)") +
+  geom_text(aes(x = 2007, label="2007", y = 130), nudge_x = 2.3, nudge_y = 1.5) + labs(title = "Race and ethnicity (ages 15 - 44)") +
   scale_color_discrete(name = "Race and Ethnicity Groups",
                        limits = c("brate_whitenh", "brate_blacknh", "brate_hisp"),
                        labels = c("White, non-Hispanic", "Black, non-Hispanic", "Hispanic")) +
@@ -99,7 +99,7 @@ df_2b %>%
 ```
 
 ```{r, echo=FALSE, warning=FALSE, message=FALSE}
-# Replicate Figure 2e
+# Replicate Figure 2e from original paper
 fig_2c_data <- read_csv("~/US_birth_rates_folder/inputs/data/fig_2e_data.csv")
 ```
 
@@ -110,12 +110,12 @@ df_2c <- fig_2c_data %>%
 ```
 
 
-```{r Figure2e, fig.cap="*Note*: Birth rates by marital status are gathered from CDC Vital Statistics Births Reports. The Data Appendix provides detailed information on the specific data source.", echo=FALSE, warning=FALSE, message=FALSE}
+```{r Figure4, fig.cap="*Note*: Birth rates by marital status are gathered from CDC Vital Statistics Births Reports. The Data Appendix provides detailed information on the specific data source.", echo=FALSE, warning=FALSE, message=FALSE}
 df_2c %>%
   ggplot(aes(x = year, y = value)) + 
   geom_line(aes(color = variable)) +
   geom_vline(xintercept = 2007, linetype="dashed") +
-  geom_text(aes(x = 2007, label="2007", y = 130), nudge_x = 2.3, nudge_y = 1.5) + labs(title = "e: Marital status (ages 15 - 44)") +
+  geom_text(aes(x = 2007, label="2007", y = 130), nudge_x = 2.3, nudge_y = 1.5) + labs(title = "Marital status (ages 15 - 44)") +
   scale_color_discrete(name = "Marital Status",
                        limits = c("brate_unmarried", "brate_married"),
                        labels = c("Unmarried", "Married")) +
@@ -130,6 +130,7 @@ df_2c %>%
 \newpage
 
 # Data
+
 We created a table using the `kable` function from the `knitr` package [@citeknitr] to show the first 10 observations of one of the datasets we used (Table 1). This table contains columns recording years and birth rates of different age groups of females.
 
 ```{r Table1, echo = FALSE, warning=FALSE}
@@ -143,12 +144,14 @@ fig_2ab_data %>%
 ```
 From Table \@ref(tab:Table1), we observed birth rates of different age groups of females from 1980 to 1989. We then created a line graph using `ggplot2` package [@citeggplot2] to get an insight on how birth rates changed for females from different races specifically after 2007. 
 
-```{r Figure3, fig.cap="Birth rates by race and ethnicity since the year 2007", echo = FALSE, message=FALSE}
+\newpage
+
+```{r Figure5, fig.cap="Birth rates by race and ethnicity since the year 2007", echo = FALSE, message=FALSE}
 df_2b %>%
   filter(year >= 2007) %>%
   ggplot(aes(x = year, y = value)) + 
   geom_line(aes(color = variable)) + 
-  labs(title = "b: Race and ethnicity (ages 15 - 44)") +
+  labs(title = "Race and ethnicity (ages 15 - 44)") +
   scale_color_discrete(name = "Race and Ethnicity Groups",
                        limits = c("brate_whitenh", "brate_blacknh", "brate_hisp"),
                        labels = c("White, non-Hispanic", "Black, non-Hispanic", "Hispanic")) +
@@ -161,16 +164,17 @@ df_2b %>%
 
 ```
 
-From Figure \@ref(fig:Figure3), we observed a steady decrease in birth rates for Hispanic females since the year 2007, while the birth rates for white females and black females are relatively steady. Figure 3 indicates that the major contribution to declining US birth rates after 2007 comes from the Hispanic populations, in contrary to Figure 2b which shows that before 2007 the black population also contributed greatly to the declining birth rates in the US. 
+From Figure \@ref(fig:Figure5), we observed a steady decrease in birth rates for Hispanic females since the year 2007, while the birth rates for white females and black females are relatively steady. Figure 5 indicates that the major contribution to declining US birth rates after 2007 comes from the Hispanic populations, in contrary to Figure 3 which shows that before 2007 the black population also contributed greatly to the declining birth rates in the US. 
 
+\newpage
 Next, we will look at how birth rates changed for females from ages 15 to 29 specifically after 2007.
 
-```{r Figure4, fig.cap="Birth rates for females aged 15 to 29 by age groups since the year 2007", echo=FALSE, warning=FALSE, message=FALSE}
+```{r Figure6, fig.cap="Birth rates for females aged 15 to 29 by age groups since the year 2007", echo=FALSE, warning=FALSE, message=FALSE}
 df_2a %>%
   filter(year >= 2007, variable == "brate_1519" | variable == "brate_2024" | variable == "brate_2529") %>%
   ggplot(aes(x = year, y = value)) + 
   geom_line(aes(color = variable)) + 
-  labs(title = "a: Five-year age group") +
+  labs(title = "Five-year age group") +
   scale_color_discrete(name = "Age Group",
                        limits = c("brate_1519", "brate_2024", "brate_2529"),
                        labels = c("Age 15 - 19", "Age 20 - 24", "Age 25 - 29")) +
@@ -182,7 +186,8 @@ df_2a %>%
         panel.grid.minor.y = element_blank())
 ```
 
-From Figure \@ref(fig:Figure4), we observed that females in the US aged 15-19, 20-24, and 25-29 all experienced a steady decline in birth rates since the year 2007. This is different from before 2007 where these 3 groups of females had relatively high, steady birth rates. 
+From Figure \@ref(fig:Figure6), we observed that females in the US aged 15-19, 20-24, and 25-29 all experienced a steady decline in birth rates since the year 2007. This is different from before 2007 where these 3 groups of females had relatively high, steady birth rates. 
+\newpage
 
 # Model
 
