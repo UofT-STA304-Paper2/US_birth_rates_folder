@@ -6,7 +6,7 @@ author:
   - Another author
 thanks: "Code and data are available at: LINK."
 date: "`r format(Sys.time(), '%d %B %Y')`"
-abstract: "First sentence. Second sentence. Third sentence. Fourth sentence."
+abstract: "Women in the US experienced an unstable birth rates decline from  68.4% in 1980 to 55.8% in 2020. We replicated some of the data plots in the original paper (Kearney, Melissa S., et al). Then we tried to analyze the data and conclude some of the factors that could fluctuate the US birth rate. By dividing the women in the US into groups (such as age, race and ethnicity, and marital status), we may suspect the reason for the declining birth rate. Hopefully, we can address the root cause of the continuous declining birth rate."
 output:
   bookdown::pdf_document2
 toc: FALSE
@@ -22,10 +22,18 @@ library(palmerpenguins)
 
 # Introduction
 
-You can and should cross-reference sections and sub-sections. For instance, Section \@ref(data). R Markdown automatically makes the sections lower case and adds a dash to spaces to generate labels, for instance, Section \@ref(first-discussion-point). 
+Study shows that the economy is determining the birth rate. Due to the 'Great Recession, the US birth rates peaked in 2007, then kept declining after 2008' [@KearneyArticle]. Firstly, we could conclude how the economy is related to the birth rate and how the income decline prevents women from giving birth. Before giving birth to a baby, many factors must be considered, such as the cost of living, unemployment rate, and policies, etc.
+
+The birth rates of different demographic groups can give us information about how the recession affects other groups of women. By comparing the overall US birth rate changes to the changes in the birth rate in different demographic groups, we may find some of the critical factors hidden behind the overall economics/fertility environment.
+
+The remainder of this paper is: Section \@ref(replications) contains replications of tables and figures from the original paper, Section \@ref(data) explains our data, Section \@ref(results) displays our results, and Section \@ref(discussion) contains discussions about our findings, weaknesses, and next steps.
+
+You can and should cross-reference sections and sub-sections. For instance, Section \@ref(data). R Markdown automatically makes the sections lower case and adds a dash to spaces to generate labels, for instance, Section \@ref(first-discussion-point).
 
 \newpage
+
 # Replications
+
 ```{r, echo=FALSE, warning=FALSE, message=FALSE}
 # Replicate Figure 1 from original paper
 fig_1_data <- read_csv("~/US_birth_rates_folder/inputs/data/fig_1_data.csv")
@@ -50,12 +58,12 @@ fig_1_data %>%
 # Replicate Figure 2 from original paper
 fig_2ab_data <- read_csv("~/US_birth_rates_folder/inputs/data/fig_2ab_data.csv")
 ```
+
 ```{r, echo=FALSE, warning=FALSE, message=FALSE}
 df_2a <- fig_2ab_data %>%
   select(year, brate_1519, brate_2024, brate_2529, brate_3034, brate_3539, brate_4044) %>%
   gather(key = "variable", value = "value", -year)
 ```
-
 
 ```{r Figure2, fig.cap="*Note*: Birth rates by age group are gathered from CDC Vital Statistics Births Reports. The Data Appendix provides detailed information on the specific data source.", echo=FALSE, warning=FALSE, message=FALSE}
 df_2a %>%
@@ -109,7 +117,6 @@ df_2c <- fig_2c_data %>%
   drop_na()
 ```
 
-
 ```{r Figure4, fig.cap="*Note*: Birth rates by marital status are gathered from CDC Vital Statistics Births Reports. The Data Appendix provides detailed information on the specific data source.", echo=FALSE, warning=FALSE, message=FALSE}
 df_2c %>%
   ggplot(aes(x = year, y = value)) + 
@@ -131,7 +138,33 @@ df_2c %>%
 
 # Data
 
-We created a table using the `kable` function from the `knitr` package [@citeknitr] to show the first 10 observations of one of the datasets we used (Table 1). This table contains columns recording years and birth rates of different age groups of females.
+In this paper, we used R [@citeR], the tidyverse package [@citetidyverse], the ggplot2 package [@citeggplot2], and the knitr package [@citeknitr] to analyze the data and make plots and tables.
+
+## Data Collection & Intervention:
+
+The data was downloaded from the website OPENICPSR [@KearneyArticle], which is a public repository. It can be freely accessed. The data was collected by considering the possible suspects behind the falling birth rates [@KearneyArticle]. Specifically, the demographic groups include age, education, race and ethnicity, marital status, and birth parity [@KearneyArticle]. The original article records the dramatic decline in birth rates in the US between the year 2007 and 2020 [@KearneyArticle]. It also analyzes the possible causing factors for such trend.
+
+The data for Figure1 is collected from CDC Vital Statistics Births Reports for 2015, 2019 and 2020 [@KearneyArticle]. We treated the data of the universe of US births from the Vital Statistics system as the intervention. In this way, we can analyze the birth rate trends in the United States from 1980 through 2020. Figure 1 shows a steady and dramatic decline of US Birth Rates since 2007 [@KearneyArticle]. Then, we divide them into different demographic groups and evaluate the effects of each group on the total decline in the birth rate. The data for Figure 2 contains Birth rates by age group, race and ethnicity, and marital status, and is collected from CDC Vital Statistics Births Reports [@KearneyArticle]. The author used the NCHS Vital Statistics birth microdata, SEER population data, and the Current Population Survey to calculate the Birth rates by Hispanic subpopulation, mother's age and education, as well as by parity (Kearney, Melissa S., et al). To be specific, Figure 2 shows the line plot of birth rates for six different age groups, which are age 15-19, age 20-24, age 25-29, age 30-34, age 35-39, and age 40-44 separately. Figure 3 is a line plot showing the birth rates by race and ethnicity. It includes "Hispanic", "Black, non-Hispanic" and "White, non-Hispanic", and it observes that the "Hispanics" experienced the most dramatic declines in birth rates [@KearneyArticle]. Moreover, Figure 4 displays the Marital status of mothers between ages 15 and 44. Specifically, there is a decreasing trend for the birth rates of married women and an increasing trend for unmarried women between the year 1980 and the early 1990s [@KearneyArticle]. However, both birth rates have not trended very differently since 2007 [@KearneyArticle]. Furthermore, the plot reveals that the decline in births is driven more by a reduction in initial childbearing than by women not having larger families [@KearneyArticle]. Moreover, it states that:" the trend lines for third and higher order births are much flatter over this period" [@KearneyArticle]
+
+## Data Overview & Data Cleaning:
+
+The source of the data contains CDC WONDER Natality Database, CDC SEER Population Estimates, Current Population Survey (CPS) Merged Outgoing Rotation Groups, CPS Annual Social and Economic Supplement, American Community Survey, Behavioral Risk and Surveillance Survey, New York Federal Reserve Bank/EQUIFAX, and Pew Research Center [@KearneyArticle]. The data-set contained the information about the dramatic decrease of birth rates in the United States between the year 2007 and 2020 [@KearneyArticle]. There were 16 datasets, and the population is the American birth rates. The sample units were the birth rates in the United States between 2007 and 2020. The respondents are individual woman with their demographic groups defined by age, education, race and ethnicity, marital status, as well as birth parity. The key features of this data show that it is divided into many groups, and the detailed analysis of each group can help people to decide the types of factors that are related to the trend. We didn't do data cleaning in this project because cleaning data will reduce the entire number of rows extensively.
+
+## Graphs & Tables:
+
+We created a table using the kable function from the knitr package [@citeknitr] to show the first 10 observations of one of the datasets we used (Table 1). We then created a line graph using ggplot2 package [@citeggplot2] to get an insight on how birth rates changed for females from different races specifically after 2007. Next, we will look at the changes of birth rates for females from ages 15 to 29 after 2007.
+
+### Showing the birth rates per year per age group of females
+
+The variable year in this table represents the years of different age groups of females. The variable brate_1519 means the birth rates of women between the ages 15 and 19 and so on. From Table 1, we observed the birth rates of different age groups of females from 1980 to 1989. For example, for the women born in the year 1980s, the birth rate is 53% when they are between 15 and 19. Also, for the women born in the year 1981s, the birth rate is 112.2% when they are between 20 and 24. This birth rate illustrates that females in this group would have one child.
+
+### Birth rates by race and ethnicity since the year 2007
+
+From Figure 5, we observed a obvious decrease in birth rates for Hispanic females since the year 2007, while the birth rates for white females and black females are relatively steady. Figure 5 indicates that the major contribution to declining US birth rates after 2007 comes from the Hispanic populations, in contrary to Figure 3 which shows that before 2007 the black population also contributed greatly to the declining birth rates in the US.
+
+### Birth rates for females aged 15 to 29 by age groups since the year 2007
+
+From Figure 6, we observed that females in the US aged 15-19, 20-24, and 25-29 all experienced a steady decline in birth rates since the year 2007. This is different from before 2007 where these 3 groups of females had relatively high, steady birth rates.
 
 ```{r Table1, echo = FALSE, warning=FALSE}
 # Create a table to take a glimpse of some of our data
@@ -142,7 +175,6 @@ fig_2ab_data %>%
   slice(1:10) %>%
   kable(caption = "First 10 rows of our dataset showing birth rate per year per age group of females")
 ```
-From Table \@ref(tab:Table1), we observed birth rates of different age groups of females from 1980 to 1989. We then created a line graph using `ggplot2` package [@citeggplot2] to get an insight on how birth rates changed for females from different races specifically after 2007. 
 
 \newpage
 
@@ -164,10 +196,7 @@ df_2b %>%
 
 ```
 
-From Figure \@ref(fig:Figure5), we observed a steady decrease in birth rates for Hispanic females since the year 2007, while the birth rates for white females and black females are relatively steady. Figure 5 indicates that the major contribution to declining US birth rates after 2007 comes from the Hispanic populations, in contrary to Figure 3 which shows that before 2007 the black population also contributed greatly to the declining birth rates in the US. 
-
 \newpage
-Next, we will look at how birth rates changed for females from ages 15 to 29 specifically after 2007.
 
 ```{r Figure6, fig.cap="Birth rates for females aged 15 to 29 by age groups since the year 2007", echo=FALSE, warning=FALSE, message=FALSE}
 df_2a %>%
@@ -186,29 +215,34 @@ df_2a %>%
         panel.grid.minor.y = element_blank())
 ```
 
-From Figure \@ref(fig:Figure6), we observed that females in the US aged 15-19, 20-24, and 25-29 all experienced a steady decline in birth rates since the year 2007. This is different from before 2007 where these 3 groups of females had relatively high, steady birth rates. 
 \newpage
 
-# Model
-
-\begin{equation}
-Pr(\theta | y) = \frac{Pr(y | \theta) Pr(\theta)}{Pr(y)}  (\#eq:bayes)
-\end{equation}
-
-Equation \@ref(eq:bayes) seems useful, eh?
-
-Here's a dumb example of how to use some references: In paper we run our analysis in `R` [@citeR]. We also use the `tidyverse` which was written by @thereferencecanbewhatever If we were interested in baseball data then @citeLahman could be useful. 
-
-We can use maths by including latex between dollar signs, for instance $\theta$.
-
-
 # Results
+
+We created a summary statistics table to look at properties of our US birth rates data.
+
+```{r, echo = FALSE, warning=FALSE, message=FALSE}
+install.packages("psych")
+```
+
+```{r Table2, echo = FALSE, warning=FALSE, message=FALSE}
+# Create a table to take a glimpse of some of our data
+library(psych)
+fig_to_sum <- select(fig_2ab_data, -c(1))
+
+fig_to_sum %>%
+  describe() %>%
+  select(mean, median, sd, min, max) %>%
+  kable(caption = "Summary statistics for US birth rates of different groups of females from 1980 to 2020")
+```
+
+From the summary table above, we could observe the mean, median, standard deviation, minimum, and maximum birth rates for different groups of females from 1980 to 2020. \newpage
 
 # Discussion
 
 ## First discussion point
 
-If my paper were 10 pages, then should be be at least 2.5 pages. The discussion is a chance to show off what you know and what you learnt from all this. 
+If my paper were 10 pages, then should be be at least 2.5 pages. The discussion is a chance to show off what you know and what you learnt from all this.
 
 ## Second discussion point
 
@@ -222,15 +256,10 @@ Weaknesses and next steps should also be included.
 
 \appendix
 
-# Appendix {-}
-
+# Appendix {.unnumbered}
 
 # Additional details
 
-
 \newpage
 
-
 # References
-
-
