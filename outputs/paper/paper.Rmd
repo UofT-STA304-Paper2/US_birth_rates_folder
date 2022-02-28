@@ -1,12 +1,13 @@
 ---
-title: "My title"
-subtitle: "My subtitle if needed"
+title: "The cost of giving birth: examining the underlying causes to the falling US birth rate"
+subtitle: "Replication of 'The Puzzle of Falling US Birth Rates since the Great Recession'"
 author: 
-  - First author
-  - Another author
-thanks: "Code and data are available at: LINK."
+  - Yuxuan Yang
+  - Fengyuan Tang
+  - Puyu Liu
+thanks: "Code and data are available at: https://github.com/UofT-STA304-Paper2/US_birth_rates_folder."
 date: "`r format(Sys.time(), '%d %B %Y')`"
-abstract: "Women in the US experienced an unstable birth rates decline from  68.4% in 1980 to 55.8% in 2020. We replicated some of the data plots in the original paper (Kearney, Melissa S., et al). Then we tried to analyze the data and conclude some of the factors that could fluctuate the US birth rate. By dividing the women in the US into groups (such as age, race and ethnicity, and marital status), we may suspect the reason for the declining birth rate. Hopefully, we can address the root cause of the continuous declining birth rate."
+abstract: "Women in the US experienced an unstable birth rates decline from  68.4% in 1980 to 55.8% in 2020. We replicated some of the data plots in the original paper (Kearney, Melissa S., et al). Then we tried to analyze the data and conclude some of the factors that could fluctuate the US birth rate. By dividing the women in the US into groups (such as age, race and ethnicity, and marital status), we may suspect the reason for the declining birth rate. Hopefully, we can address the root cause of the continuous declining birth rate. https://doi.org/10.48152/ssrp-dzf4-ae39"
 output:
   bookdown::pdf_document2
 toc: FALSE
@@ -27,8 +28,6 @@ Study shows that the economy is determining the birth rate. Due to the 'Great Re
 The birth rates of different demographic groups can give us information about how the recession affects other groups of women. By comparing the overall US birth rate changes to the changes in the birth rate in different demographic groups, we may find some of the critical factors hidden behind the overall economics/fertility environment.
 
 The remainder of this paper is: Section \@ref(replications) contains replications of tables and figures from the original paper, Section \@ref(data) explains our data, Section \@ref(results) displays our results, and Section \@ref(discussion) contains discussions about our findings, weaknesses, and next steps.
-
-You can and should cross-reference sections and sub-sections. For instance, Section \@ref(data). R Markdown automatically makes the sections lower case and adds a dash to spaces to generate labels, for instance, Section \@ref(first-discussion-point).
 
 \newpage
 
@@ -152,19 +151,19 @@ The source of the data contains CDC WONDER Natality Database, CDC SEER Populatio
 
 ## Graphs & Tables:
 
-We created a table using the kable function from the knitr package [@citeknitr] to show the first 10 observations of one of the datasets we used (Table 1). We then created a line graph using ggplot2 package [@citeggplot2] to get an insight on how birth rates changed for females from different races specifically after 2007. Next, we will look at the changes of birth rates for females from ages 15 to 29 after 2007.
+We created a table using the kable function from the knitr package [@citeknitr] to show the first 10 observations of one of the datasets we used Table \@ref(tab:Table1). We then created a line graph using ggplot2 package [@citeggplot2] to get an insight on how birth rates changed for females from different races specifically after 2007. Next, we will look at the changes of birth rates for females from ages 15 to 29 after 2007.
 
 ### Showing the birth rates per year per age group of females
 
-The variable year in this table represents the years of different age groups of females. The variable brate_1519 means the birth rates of women between the ages 15 and 19 and so on. From Table 1, we observed the birth rates of different age groups of females from 1980 to 1989. For example, for the women born in the year 1980s, the birth rate is 53% when they are between 15 and 19. Also, for the women born in the year 1981s, the birth rate is 112.2% when they are between 20 and 24. This birth rate illustrates that females in this group would have one child.
+The variable year in this table represents the years of different age groups of females. The variable brate_1519 means the birth rates of women between the ages 15 and 19 and so on. From Table \@ref(tab:Table1), we observed the birth rates of different age groups of females from 1980 to 1989. For example, for the women born in the year 1980s, the birth rate is 53% when they are between 15 and 19. Also, for the women born in the year 1981s, the birth rate is 112.2% when they are between 20 and 24. This birth rate illustrates that females in this group would have one child.
 
 ### Birth rates by race and ethnicity since the year 2007
 
-From Figure 5, we observed a obvious decrease in birth rates for Hispanic females since the year 2007, while the birth rates for white females and black females are relatively steady. Figure 5 indicates that the major contribution to declining US birth rates after 2007 comes from the Hispanic populations, in contrary to Figure 3 which shows that before 2007 the black population also contributed greatly to the declining birth rates in the US.
+From Figure \@ref(fig:Figure5), we observed a obvious decrease in birth rates for Hispanic females since the year 2007, while the birth rates for white females and black females are relatively steady. Figure \@ref(fig:Figure5) indicates that the major contribution to declining US birth rates after 2007 comes from the Hispanic populations, in contrary to Figure \@ref(fig:Figure3) which shows that before 2007 the black population also contributed greatly to the declining birth rates in the US.
 
 ### Birth rates for females aged 15 to 29 by age groups since the year 2007
 
-From Figure 6, we observed that females in the US aged 15-19, 20-24, and 25-29 all experienced a steady decline in birth rates since the year 2007. This is different from before 2007 where these 3 groups of females had relatively high, steady birth rates.
+From Figure \@ref(fig:Figure6), we observed that females in the US aged 15-19, 20-24, and 25-29 all experienced a steady decline in birth rates since the year 2007. This is different from before 2007 where these 3 groups of females had relatively high, steady birth rates.
 
 ```{r Table1, echo = FALSE, warning=FALSE}
 # Create a table to take a glimpse of some of our data
@@ -218,8 +217,12 @@ df_2a %>%
 \newpage
 
 # Results
+We created a table showing the birth rates of different age groups of women in each year. It shows that younger women tend to be more affected by the Great Recession, which fell by an amount of 30-40 units (per 1000 women). However, older age groups decrease slower after 2007. Also, we made a line plot to display the pattern of birth rates based on different race and ethnicity groups, which shows that Hispanic people’s birth rate fell from 97.4 in 2007 to 62.8 in 2020. The birth rate of non-Hispanic people fell by less than 5 units. Moreover, we analyzed the birth rates for females aged between 15 and 29 by age groups since the year 2007. Then, we displayed the summary statistics by Table \@ref(tab:Table2).
 
-We created a summary statistics table to look at properties of our US birth rates data.
+## Summary statistics
+For the summary statistics, we would analyze the properties of our US birth rates data. Table \@ref(tab:Table2) illustrates the the mean, median, standard deviation, minimum, and maximum birth rates for different groups of females from 1980 to 2020. Specifically, the highest mean of US birth rates is in the group of females aged from 25 to 29, which is around 110%. The lowest is in the age group between 40 to 44, and this is reasonable. The highest and lowest medians of birth rates are also in these two groups respectively. 
+
+Below is Table \@ref(tab:Table2), which we created to show summary statistics of properties of our US birth rates data.
 
 ```{r, echo = FALSE, warning=FALSE, message=FALSE}
 install.packages("psych")
@@ -236,29 +239,27 @@ fig_to_sum %>%
   kable(caption = "Summary statistics for US birth rates of different groups of females from 1980 to 2020")
 ```
 
-From the summary table above, we could observe the mean, median, standard deviation, minimum, and maximum birth rates for different groups of females from 1980 to 2020. \newpage
+From the summary table above, we could observe the mean, median, standard deviation, minimum, and maximum birth rates for different groups of females from 1980 to 2020. 
+\newpage
 
 # Discussion
 
 ## First discussion point
 
-If my paper were 10 pages, then should be be at least 2.5 pages. The discussion is a chance to show off what you know and what you learnt from all this.
+In this paper, we replicated some of the data plots in the original paper [@KearneyArticle]. Then we created some plots ad tables to analyze the data. We also concluded some of the factors that could influence the US birth rates. 
+From this paper, we learned that since 2007, there is a dramatic decrease of US birth rates. Also, according to the graphs of Birth rates by age group, race and ethnicity and marital status, teens and women in their 20s contribute most to the main decline in birth rates. Moreover, for race and ethnicity, the most dramatic reduction in birth rates occurred in Hispanics. Furthermore, there is a slight decease of birth rates for married women and a slight increase for unmarried women. We also learned the two reasons that are possible to cause the decrease of birth rates. 
 
 ## Second discussion point
 
+The first reason is called “shifting priorities”. The original paper states that: “the three cohorts of women who entered their young adult years in 1992, 1997, and 2002, all had similar childbearing age profiles. Then, the cohort of women who entered young adulthood in 2007, had fewer children throughout their 20s and their 30s” [@KearneyArticle]. This means that young women would possibly sweat themselves out on other important things, instead of having children. The other reason could be urbanization. Based on the website, urban residence would likely increase the costs of raising children because they are more expensive [@WhiteArticle].
+
 ## Third discussion point
+
+Furthermore, it is possible that urbanization is associated with ideological change such as beliefs and attitudes surrounding large families [@WhiteArticle]. In addition, urban residents have better methods to control birth,and this allows them to act on reducing childbearing more effectively [@WhiteArticle].
 
 ## Weaknesses and next steps
 
-Weaknesses and next steps should also be included.
-
-\newpage
-
-\appendix
-
-# Appendix {.unnumbered}
-
-# Additional details
+The weakness is that we didn't analyze the the effects of Hispanic sub-population, Mother’s level of education, Parity and so on. Thus, our findings may be incomplete. The things that are left to learn include the ways to scientifically improve the urban birth rates, as well as the factors that cause the shifts of priorities. 
 
 \newpage
 
